@@ -1,0 +1,15 @@
+{% for farmer in farmers %}
+    <div class="maincard">
+        <img src="{{ farmer.farmer_photo.url }}" width="150" height="150" alt="Farmer Photo">
+        <h2>{{ farmer.farmer_name }}</h2>
+        <p>Email: {{ farmer.farmer_email }}</p>
+        <p>Contact: {{ farmer.farmer_contact }}</p>
+        <p>Address: {{ farmer.farmer_address }}</p>
+        <p>District: {{ farmer.farmer_place.district.district_name }}</p>
+        <p>Place: {{ farmer.farmer_place.place_name }}</p>
+        <p><a href="{% url 'webuser:Product' farmer.id %}">View Product</a></p>
+        
+          
+       
+    </div>
+    {% endfor %}

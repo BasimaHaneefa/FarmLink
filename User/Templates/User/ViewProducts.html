@@ -1,0 +1,75 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        .maincard {
+            padding: 20px;
+            background-color: #b3e9f58c;
+            width: calc(25% - 40px); /* 25% width for each card in a row */
+            margin: 10px; /* Adjust margin between cards */
+            box-sizing: border-box; /* Ensure padding and border are included in the width */
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .main {
+            display: flex;
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+            justify-content: space-evenly; /* Align items with equal space between them */
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+   <div id="tab" align="center">
+    <table border="1" align="center">
+        <tr>
+            <td>Product Type</td>
+            <td><select name="Type" id="Type">
+                <option value="">Select</option>
+                {% for i in data %}
+                <option value="{{i.id}}">{{i.Product_Category}}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+    </table>
+    </div>
+    <div id="result">
+        {% for i in pdata %}
+        <div class="maincard">
+            <img src="{{ i.product_image.url }}" width="150" height="150" alt="Product Photo">
+            <h2>{{ i.product_name }}</h2>
+            <p>Category: {{ i.productcategory.Product_Category }}</p>
+            <p>Details: {{ i.product_description }}</p>
+            <p>Rate: {{ i.product_rate }}</p>
+            <p><a href="{% url 'webuser:Addcart' i.id %}">Add Cart</a></p>
+            
+           
+        </div>
+        {% endfor %}
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#Type").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'webuser:AjaxProduct' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#result").html(data);
+            },
+        });
+    });
+    </script>
+</html>
+{% endblock content %}

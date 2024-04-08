@@ -1,0 +1,58 @@
+{% extends 'Admin/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         table{
+            margin-top: 30px;
+        }
+        td{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+    <div id="tab" align="center">
+    <form method="post">
+        {% csrf_token %}
+        <table border="3" align="center">
+            <tr>
+                <td>Product Category</td>
+                <td><input type="text" name="txtproductcategory" value="{{saved.Product_Category}}" id=""></td>
+            </tr>
+
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="submit" value="save" name="btn1">
+                    <input type="reset" value="cancel" name="btn2">
+                </td>
+            </tr>
+        </table>
+<br><br>
+        <table align="center" border="2">
+
+            <tr>
+                <th>SI No</th>
+                <th>Product Category</th>
+                <th>Action</th>
+            </tr>
+                {% for i in Saved %}
+            <tr>
+                <td>{{ forloop.counter}}</td>
+                <td>{{i.Product_Category}}</td>
+                <td colspan="2"><a href="{% url 'webadmin:Delete_product_category' i.id %}"> <input type="button" value="Delete">
+                                <a href="{% url 'webadmin:edit_product_category' i.id %}"><input type="button" value="Edit"></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+</body>
+</html>
+{% endblock content %}

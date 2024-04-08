@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Salary Calculation</title>
+</head>
+<body> 
+    <h1 style="text-align: center;text-decoration:underline ;">Bacis Salary Calculation</h1>
+    <br><br>
+    <form method="post">
+        {% csrf_token %}
+         <table align="center" border="3" width="500px">
+            <tr>
+                <td>First Name</td>
+                <td ><input type="text" name="txtfname" placeholder="Enter Your First Name"></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" name="txtlname" placeholder="Enter Your Last Name"></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td> 
+                    <input type="radio" name="gender" value="male">Male 
+                    <input type="radio" name="gender" value="female">Female
+                </td>
+            </tr>
+            <tr>
+                <td>Martial</td>
+                <td>
+                    <input type="radio" name="martial" value="single">Single 
+                    <input type="radio" name="martial" value="married">Married
+                </td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td> <select name="department" >
+                    <option value="" >Choose Your Department</option>
+                    <option value="bca">BCA</option>
+                    <option value="mca">MCA</option>
+                    <option value="bcom">BCOM</option>
+                    <option value="mcom">MCOM</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Basics Salary</td>
+                <td><input type="text" name="txtbasicsalary" placeholder="Enter Your Bacis Salary"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="submit" name="submit">
+                    <input type="reset" name="cancel" id="cancel">
+                </td>
+            </tr>
+            <tr>
+                <td>NAME</td>
+                <td>{{fname}}</td>
+            </tr>
+           
+            <tr>
+                <td>Gender</td>
+                <td>{{gender}}</td>
+            </tr>
+            <tr>
+                <td>Martial</td>
+                <td>{{martial}}</td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td>{{department}}</td>
+            </tr>
+            <tr>
+                <td>Bacis Salary</td>
+                <td>{{txtbasicsalary}}</td>
+            </tr>
+            <tr>
+                <td>T.A</td>
+                <td>{{ta}}</td>
+            </tr>
+            <tr>
+                <td>D.A</td>
+                <td>{{da}}</td>
+            </tr>
+            <tr>
+                <td>HRC</td>
+                <td>{{hrc}}</td>
+            </tr>
+            <tr>
+                <td>LIC</td>
+               <td>{{lic}}</td>
+            </tr>
+            <tr>
+                <td>P.F</td>
+                <td>{{pf}}</td>
+            </tr>
+            <tr>
+                <td>Deduction</td>
+                <td>{{deduction}}</td>
+            </tr>
+            <tr>
+                <td>NET</td>
+                 <td>{{net}}</td>
+            </tr>
+            
+         </table>
+    </form>
+</body>
+</html>

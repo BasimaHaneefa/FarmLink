@@ -1,0 +1,52 @@
+{% extends 'FarmerApp/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Updates</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+    <div id="tab" align="center">
+    <h2>Market Updates</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Category</th>
+                <th>Market Rate</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for marketupdate in marketupdates %}
+                <tr>
+                    <td>{{ marketupdate.product_name }}</td>
+                    <td>{{ marketupdate.productcategory.Product_Category }}</td>
+                    <td>{{ marketupdate.market_rate }}</td>
+                    <td>{{marketupdate.update_date}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</body>
+</html>
+{% endblock content %}

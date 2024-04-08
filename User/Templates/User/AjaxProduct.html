@@ -1,0 +1,13 @@
+{% for i in pdata %}
+        <div class="maincard">
+            <img src="{{ i.product_image.url }}" width="150" height="150" alt="Product Photo">
+            <h2>{{ i.product_name }}</h2>
+            <p>Category: {{ i.productcategory.Product_Category }}</p>
+            <p>Details: {{ i.product_description }}</p>
+            <p>Rate: {{ i.product_rate }}</p>
+            <p><a href="{% url 'webuser:Addcart' i.id %}">Add Cart</a></p>
+            
+            
+           
+        </div>
+        {% endfor %}

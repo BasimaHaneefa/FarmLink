@@ -1,0 +1,64 @@
+{% extends 'Admin/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+           margin-top: 30px;
+       }
+       td{
+           padding: 30px;
+       }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+    <div id="tab" align="center">
+
+    <table align="center" border="2">
+        <tr>
+            <th>SI NO</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>District</th>
+            <th>Place</th>
+            <th>Photo</th>
+            <th>Proof</th>
+            <th>Action</th>
+        </tr>
+        {% for i in data %}
+        
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.farmer_name}}</td>
+            <td>{{i.farmer_email}}</td>
+            <td>{{i.farmer_contact}}</td>
+            <td>{{i.farmer_address}}</td>
+            <td>{{i.farmer_place.district.district_name}}</td>
+            <td>{{i.farmer_place.place_name}}</td>
+            <td><img src="{{i.farmer_photo.url}}" width="50" height="150"></td>
+            <td><img src="{{i.farmer_proof.url}}" width="50" height="150"></td>
+            
+            <td colspan="2">
+                <a href="{% url 'webadmin:approve_farmer_registration' i.id %}"><input type="button" value="Reject">
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+    
+
+    
+</body>
+</html>
+{% endblock content %}

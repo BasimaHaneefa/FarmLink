@@ -1,0 +1,53 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+    <div id="tab" align="center">
+    <table border="1" align="center">
+        <tr>
+            <td>Sl.no</td>
+            <td>Image</td>
+            <td>Product</td>
+            <td>Price</td>
+            <td>Farmer</td>
+            <td>Status</td>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><img src="{{i.product.product_image.url}}" width="150" height="150"></td>
+            <td>{{i.product.product_name}}</td>
+            <td>{{i.product.product_rate}}</td>
+            <td>{{i.product.farm.farmer_name}}</td>
+            <td>{% if i.booking.booking_status == '2' %}
+                {% if i.cart_status == '0' %}
+                Ready to pack
+                {% elif i.cart_status == '1' %}
+                Packed
+                {% elif i.cart_status == '2' %}
+                Shipped
+                {% elif i.cart_status == '3' %}
+                Order Completed
+                {% else %}
+                Update error
+                {% endif %}
+                {% else %}
+                Error
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<br><br>
+</body>
+</html>
+{% endblock content %}

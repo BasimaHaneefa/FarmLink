@@ -1,0 +1,64 @@
+{% extends 'Admin/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+    <div id="tab" align="center">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+      <table border="1">  
+          <tr>
+           <td>Title</td>
+           <td><input type="text" name="txttit"></td>
+          </tr>
+          <tr>
+            <td>Details</td>
+            <td><textarea name="txtdetails"></textarea></td>
+           </tr>
+           <tr>
+            <td>File</td>
+            <td><input type="file" name="file"></td>
+           </tr>
+          <tr>
+             <td colspan="2" align="center">
+                 <input type="submit" name="Save" value="Save">
+                 <input type="reset"  name="Cancel"  value="Cancel">
+             </td>
+          </tr>
+      </table>
+
+      </form>
+      <br>
+        <table border="1">
+            <tr>
+                <td>Sl.no</td>
+                <td>Title</td>
+                <td>Details</td>
+                <td>Date</td>
+                <td>File</td>
+                <td>Action</td>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.info_title}}</td>
+                <td>{{i.info_details}}</td>
+                <td>{{i.info_date}}</td>
+                <td><img src="{{i.info_file.url}}" width="150" height="150"></td>
+                <td><a href="{% url 'webadmin:DeleteInfo' i.id %}">Delete</a></td>
+
+
+            </tr>
+            {% endfor %}
+       </table>  
+    </div>
+</body>
+</html>
+{% endblock content %}

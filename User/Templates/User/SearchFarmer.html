@@ -1,0 +1,103 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .maincard {
+            padding: 20px;
+            background-color: #b3e9f58c;
+            width: calc(25% - 40px); /* 25% width for each card in a row */
+            margin: 10px; /* Adjust margin between cards */
+            box-sizing: border-box; /* Ensure padding and border are included in the width */
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .main {
+            display: flex;
+            flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+            justify-content: space-evenly; /* Align items with equal space between them */
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+   
+    {% if msg %}
+    <script>
+        alert('{{msg}}')
+        window.location="{% url 'webuser:SearchFarmer' %}"
+    </script>
+    {% endif %}
+    <div id="tab" align="center">
+    <table border="1" align="center">
+        <tr>
+            <td>District</td>
+            <td>
+                <select name="seldis" id="seldis" onchange="getFarmer()">
+                    <option value="">Select</option>
+                    {% for i in dis %}
+                        <option value="{{i.id}}">{{i.district_name}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Place</td>
+            <td>
+                <select name="selplace" id="selplace" onchange="getFarmer()">
+                    <option value="">Select</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+    <div class="main" id="result">
+        {% for farmer in farmers %}
+        <div class="maincard">
+            <img src="{{ farmer.farmer_photo.url }}"  width="150" height="150" alt="Farmer Photo">
+            <h2>{{ farmer.farmer_name }}</h2>
+            <p>Email: {{ farmer.farmer_email }}</p>
+            <p>Contact: {{ farmer.farmer_contact }}</p>
+            <p>Address: {{ farmer.farmer_address }}</p>
+            <p>District: {{ farmer.farmer_place.district.district_name }}</p>
+            <p>Place: {{ farmer.farmer_place.place_name }}</p>
+            <p><a href="{% url 'webuser:Product' farmer.id %}">View Product</a></p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#seldis").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Guest:ajaxplace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#selplace").html(data);
+            },
+        });
+    });
+    function getFarmer(){
+        var dis=document.getElementById("seldis").value
+        var place=document.getElementById("selplace").value
+        var ur = "{% url 'webuser:AjaxFarmer' %}"
+        $.ajax({
+            url: ur,
+            data: { dis: dis,place: place },
+            success: function (data) {
+                $("#result").html(data);
+            },
+        });
+    }
+</script>
+</html>
+{% endblock content %}
